@@ -10,7 +10,7 @@ Z adresem example.org związany jest adres IP:
 - 96.7.128.186
 - 96.7.128.192
 - 23.215.0.132
-- 23.215.0.133
+- 23.215.0.133e
 
 Dla example.org w wireshark mam:
 - IP - Adres źródłowy(Src): 10.0.2.15, Adres docelowy(Dst): 96.7.128.192
@@ -51,14 +51,14 @@ Udaje mi się uzyskać prędkość przeysłania na poziomie 4.43 Gbit/sec
 
 2. Aktywujemy karty sieciowe na obu urządzeniach poleceniami:  **ip link set up dev enp0s3**, potem **sudo ethtool enp0s3** i mamy stan warstwy fizycznej dla interfejsu enp0s3.
 
-3. Wykonujemy:
+3. Wykonujemy:. 1
 - Na virbian1: **sudo ip addr add 192.168.100.1/24 dev enp0s3**
 - Na virbian2: **sudo ip addr add 192.168.100.2/24 dev enp0s3**
 
 4. W virbian1 robimy **ping 192.168.100.2** i widzimy że virbian2 jest osiągalny. RTT równy 0.15-0.2. Wchodzimy w wireshark i w enp0s3. Tam wybieramy jakiś reply i podlgądamy pakiet. W sekcji Internet Protocol Version 4 (IP v4) Mamy Src: 192.168.100.1 I Dst: 192.168.100.2. 
 
-5. Na Virbian2 robimy **iperf3 -s** . Na virbian1 robimy **iperf3 -c 102.168.100.2**. Monitorujemy bitrate, wyszło 1.34Gbit/sec.
+5. Na Virbian2 robimy **iperf3 -s** . Na virbian1 robimy **iperf3 -c 192.168.100.2**. Monitorujemy bitrate, wyszło 1.34Gbit/sec.
 
-6. Na Virbianie1 wywołujemy **telnet 102.168.100.2 7** to połączy się z serwerem echo Virbiana2, bo domyślnie port 7 to serwer echo. Podglądając pakiety widać te echo. 
+6. Na Virbianie1 wywołujemy **telnet 192.168.100.2 7** to połączy się z serwerem echo Virbiana2, bo domyślnie port 7 to serwer echo. Podglądając pakiety widać te echo. 
 
 7. Dekonfigurujemy na ibu virbianach: **sudo ip addr flush dev enp0s3** , **ip link set down dev enp0s3**
