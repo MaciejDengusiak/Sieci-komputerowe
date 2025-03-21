@@ -11,5 +11,9 @@ $(TARGET): $(SRC)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(OBJ)
+
+distclean: clean
+	rm -f $(TARGET)
