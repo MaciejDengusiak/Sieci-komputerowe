@@ -18,6 +18,7 @@
 #include <vector>
 #include <set>
 #include <arpa/inet.h>
+#include <chrono>
 
 #define POLL_TIMEOUT 1000 
 char* _ip;
@@ -93,7 +94,6 @@ void icmp_receive(int actual_ttl, int cnt, char* ip) {
         if (remaining_time <= std::chrono::milliseconds{0}) {
             break;
         }
-
         int timeout_ms = std::chrono::duration_cast<std::chrono::milliseconds>(remaining_time).count();
         int ret = poll(fds, 1, timeout_ms);
         if (ret == -1) {
@@ -129,7 +129,7 @@ void icmp_receive(int actual_ttl, int cnt, char* ip) {
                     is_my_packet = true;
                 }
                 
-                if(is_my_packet){ // Save time, and ip
+                if(is_my_packet){ // Save response time and ip
                     auto response_time = std::chrono::steady_clock::now() - start_time;
                     responses_ip.insert(sender_ip_str);
                     responses_time.push_back(std::chrono::duration_cast<std::chrono::milliseconds>(response_time).count());
@@ -162,7 +162,7 @@ void icmp_receive(int actual_ttl, int cnt, char* ip) {
         std::cout << response_time_avg/3 << "ms\n";
     }
 
-    if(responses_ip.find(ip) != responses_ip.end()){ // We found last id
+    if(responses_ip.find(ip) != responses_ip.end()){ // Package from dst
         exit(0);
     }
 }
@@ -181,13 +181,12 @@ void trace_route(int ttl_max, char* ip){
 int main(int argc, char* argv[])
 {
     if(argc < 2 || argc > 2){
-        std::cout << "Error accured! You should use command './traceroute `ip`'.";
+        std::cout << "Error accured! You should use command './traceroute `ip`'.\n";
         return 1;
     }
     if(!validate_ipv4(argv[1])){
-        std::cout << "Error accured! Invalid IP address.";
+        std::cout << "Error accured! Invalid IP address.\n";
         return 1;
     }
-    // Sprawdzić czy argv to adres IP
     trace_route(30, argv[1]);
 }
