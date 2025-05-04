@@ -40,6 +40,18 @@
         "variant": "cpp",
         "algorithm": "cpp",
         "vector": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "__node_handle": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "charconv": "cpp",
+        "__hash_table": "cpp",
+        "array": "cpp",
+        "complex": "cpp",
+        "optional": "cpp",
+        "sstream": "cpp",
+        "unordered_map": "cpp",
+        "map": "cpp",
+        "iomanip": "cpp"
     }
 }

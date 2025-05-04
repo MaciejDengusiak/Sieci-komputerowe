@@ -181,11 +181,11 @@ void trace_route(int ttl_max, char* ip){
 int main(int argc, char* argv[])
 {
     if(argc < 2 || argc > 2){
-        std::cout << "Error accured! You should use command './traceroute `ip`'.\n";
+        std::cout << "Error occured! You should use command './traceroute `ip`'.\n";
         return 1;
     }
     if(!validate_ipv4(argv[1])){
-        std::cout << "Error accured! Invalid IP address.\n";
+        std::cout << "Error occured! Invalid IP address.\n";
         return 1;
     }
     trace_route(30, argv[1]);
