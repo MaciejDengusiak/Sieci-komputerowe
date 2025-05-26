@@ -86,6 +86,7 @@
         "xutility": "cpp",
         "filesystem": "cpp",
         "fstream": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "xhash": "cpp"
     }
 }
